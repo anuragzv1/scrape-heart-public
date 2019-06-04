@@ -1,0 +1,7 @@
+node_modules/ 
+dump.rdb
+/logs
+package-lock.json
+/.DS_Store
+/test.js
+/config-test.json
