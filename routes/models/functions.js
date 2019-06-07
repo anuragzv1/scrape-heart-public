@@ -2,7 +2,14 @@ var fs = require("fs");
 var shell = require('shelljs');
 var request =require('request');
 var shell = require('shelljs');
-
+const readConfig =  require('jsonfile').readFileSync;
+//Load Config File
+try {
+    var config = readConfig(process.argv[2] || "config.json");
+} catch (e) {
+    console.log("[error] " + new Date().toGMTString() + " : Server Config Not Found.");
+    return process.exit(-1);
+}
 
 
 var apilog = (engine, success, url, timestamp, params) => {
@@ -102,7 +109,7 @@ var lastsuccessorfailedstatus = (engine, array) => {
 var updatetoredisqueue = (engine,machine_add) => {
     request.post({
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        url: 'http://localhost:3000/api/updateenginestatus',
+        url: config.scrapeMind.updateEngineStatus,
         form: {
             "engine": engine,
             "machine_add":machine_add

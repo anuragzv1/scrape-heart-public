@@ -10,7 +10,7 @@ const scrapper = require('se-scraper');
 const CronJob = require('cron').CronJob;
 const fs = require('fs');
 var port = process.env.PORT || 3001;
-const readConfig =  require('jsonfile').readFileSync;;
+const readConfig =  require('jsonfile').readFileSync;
 
 //Internal_modules
 se = require('./routes/controllers/searchengine');
@@ -162,7 +162,7 @@ app.post('/', (req, res) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     request.post({
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        url: 'http://localhost:3000/api/checkcredentials',
+        url: config.scrapeMind.credentials,
         form: {
             "email": req.body.email,
             "pass": req.body.pass
@@ -188,7 +188,7 @@ app.post('/', (req, res) => {
                 var updatestatus = new CronJob('*/2 * * * * *', () => {
                     request.post({
                         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                        url: 'http://localhost:3000/api/update_status',
+                        url: config.scrapeMind.updateStatus,
                         form: { "email": req.user },
                         json: true
                     }, (error, response, body) => {
