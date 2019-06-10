@@ -3,6 +3,10 @@ var shell = require('shelljs');
 var request =require('request');
 var shell = require('shelljs');
 const readConfig =  require('jsonfile').readFileSync;
+const localtunnel = require('localtunnel');
+var port = process.env.PORT || 3001;
+
+
 //Load Config File
 try {
     var config = readConfig(process.argv[2] || "config.json");
@@ -11,6 +15,16 @@ try {
     return process.exit(-1);
 }
 
+const tunnel = localtunnel(port,(err, tunnel) => {
+    if(err){
+        console.log(err);
+    }
+    else console.log(tunnel.url); 
+    });
+
+    tunnel.on('close', function() {
+        // When the tunnel is closed
+    });
 
 var apilog = (engine, success, url, timestamp, params) => {
     calllog = {
@@ -28,7 +42,7 @@ var apilog = (engine, success, url, timestamp, params) => {
             });
             console.log(err);
         } else {
-            core.updatetoredisqueue(engine,shell.exec('ifconfig en1 | awk "/ether/{print $2}"').stdout);
+            core.updatetoredisqueue(engine,tunnel.url);
             obj = JSON.parse(data); //Now it an object
             obj.logs.push(calllog); //Add some data
             json = JSON.stringify(obj); //Convert it back to json
@@ -138,5 +152,5 @@ module.exports = {
     apilog,
     processor,
     freeram, os, statusupdater,
-    lastsuccessorfailedstatus,updatetoredisqueue
+    lastsuccessorfailedstatus,updatetoredisqueue,tunnel
 }

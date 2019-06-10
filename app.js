@@ -11,12 +11,19 @@ const CronJob = require('cron').CronJob;
 const fs = require('fs');
 var port = process.env.PORT || 3001;
 const readConfig =  require('jsonfile').readFileSync;
+const localtunnel = require('localtunnel');
+
+
+
+
+
 
 //Internal_modules
 se = require('./routes/controllers/searchengine');
 custom = require('./routes/controllers/customtasks');
 core = require('./routes/models/functions');
 systemresources = require('./routes/controllers/systemres');
+facebooklogin=require('./routes/controllers/facebooklogin');
 
 //Load Config File
 try {
@@ -147,6 +154,7 @@ app.use(express.static(__dirname + '/views'));
 app.use('/se', se);
 app.use('/custom', custom);
 app.use('/systemres', systemresources);
+app.use('/facebookapi',facebooklogin);
 
 
 //Public_routes
@@ -160,7 +168,8 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    request.post({
+   
+        request.post({
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         url: config.scrapeMind.credentials,
         form: {
@@ -185,11 +194,12 @@ app.post('/', (req, res) => {
                 });
             }
             else if (body == 'CORRECT_CREDENTIALS') {
+
                 var updatestatus = new CronJob('*/2 * * * * *', () => {
                     request.post({
                         headers: { 'content-type': 'application/x-www-form-urlencoded' },
                         url: config.scrapeMind.updateStatus,
-                        form: { "email": req.user },
+                        form: { "email": req.user,"url":core.tunnel.url },
                         json: true
                     }, (error, response, body) => {
                         if (error) {
@@ -199,7 +209,6 @@ app.post('/', (req, res) => {
                     });
                 });
                 updatestatus.start();
-
                 //Session_creation_here
                 const user_id = req.body.email;
                 req.login(req.body.email, (error) => {
@@ -261,7 +270,8 @@ app.get('/live', (req, res) => {
                 baidu: core.lastsuccessorfailedstatus('baidu', logarray.logs),
                 infospace: core.lastsuccessorfailedstatus('infospace', logarray.logs),
                 duckduckgo: core.lastsuccessorfailedstatus('duckduckgo', logarray.logs),
-                custom: core.lastsuccessorfailedstatus('custom', logarray.logs)
+                custom: core.lastsuccessorfailedstatus('custom', logarray.logs),
+                facebook: core.lastsuccessorfailedstatus('facebook',logarray.logs)
             });
         }
         else {

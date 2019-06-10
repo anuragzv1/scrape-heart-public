@@ -15,6 +15,10 @@
         "port": 6379,
         "ttl": 260
     },
+    "facebook":{
+        "user":"proanurag",
+        "pass":"anurag@kali"
+    },
     "scrapeMind":{
         "credentials":"http://localhost:3000/api/checkcredentials",
         "updateStatus":"http://localhost:3000/api/update_status",

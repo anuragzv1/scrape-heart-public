@@ -32,6 +32,7 @@
     "express-validator": "^5.3.1",
     "hbs": "^4.0.4",
     "jsonfile": "^5.0.0",
+    "localtunnel": "^1.9.2",
     "passport": "^0.4.0",
     "request": "^2.88.0",
     "se-scraper": "^1.2.17",

@@ -1,52 +1,151 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Bytescare-Client-Dashboard</title>
-  </head>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Bytescare-Client-Dashboard</title>
+  <script src="js/facebook.js"></script>
+</head>
+<style>
+  .container {
+    width: 500px;
+    margin-top: 50px;
+  }
+</style>
+
+<body>
   <style>
-      .container{
-          width:500px;
-          margin-top: 50px;
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
       }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
   </style>
-    <body>
-        <center><h4>Connected to bytescare-server user id: {{user_id}}</h4>
-        <br/>
-        <img src="loading.gif" alt="connected to bytescare servers."><br/>
-        <small>You have successfully connected to bytescare servers.</small>
-        <br/>
-        <br/>
-        <button type="button" class="btn btn-primary" onclick="window.location.href='/logout'">LOGOUT</button>
-        </center>
-        <center><div class="running_porcesses">
-            <br/>{{rprocess}}</div><br/>
+  </head>
+
+  <body>
+    <div class="w3-container">
+      <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+          <div class="w3-container">
+            <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+
+            <!--Facebook_form -->
+            <form id="facebookform" action="" onsubmit="return facebook();">
+              <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="text" class="form-control" name="email">
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" name="pwd">
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" id="defaultcheck" checked>USE SAVED DETAILS</label>
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <!--Facebook_form_ends -->
+
+          </div>
         </div>
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">query_name</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Processor</td>
-      <td>{{processor}}</td>
-    </tr>
-  </tbody>
-</table>
-        
-        
-        
-        
-        </center>
-    </body>
-    </html>
+      </div>
+    </div>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/live">Live API's Status</a>
+      <a href="#" onclick="document.getElementById('id01').style.display='block'">Facebook config</a>
+      <a href="#">Dummy entry</a>
+      <a href="#">Dummy entry</a>
+    </div>
+    <br />
+    <span style="font-size:25px;cursor:pointer" onclick="openNav()">&nbsp Menu &#9776;</span>
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
+    <center>
+      <h4>Connected to bytescare-server user id: {{user_id}}</h4>
+      <br />
+      <img src="loading.gif" alt="connected to bytescare servers."><br />
+      <small>You have successfully connected to bytescare servers.</small>
+      <br />
+      <br />
+      <button type="button" class="btn btn-primary" onclick="window.location.href='/logout'">LOGOUT</button>
+    </center>
+    <center>
+      <div class="running_porcesses">
+        <br />{{rprocess}}</div><br />
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">query_name</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Processor</td>
+            <td>{{processor}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  </body>
+</html>
