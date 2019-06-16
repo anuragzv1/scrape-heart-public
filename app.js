@@ -11,7 +11,6 @@ const CronJob = require('cron').CronJob;
 const fs = require('fs');
 var port = process.env.PORT || 3001;
 const readConfig =  require('jsonfile').readFileSync;
-const localtunnel = require('localtunnel');
 
 
 

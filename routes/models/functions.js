@@ -15,7 +15,7 @@ try {
     return process.exit(-1);
 }
 
-const tunnel = localtunnel(port,(err, tunnel) => {
+const tunnel =  localtunnel(port, (err, tunnel)=> {
     if(err){
         console.log(err);
     }
