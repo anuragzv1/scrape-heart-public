@@ -97,6 +97,17 @@
                     <td style="background:red">{{custom.currentstatus}}</td>
                     {{/unless}}
                 </tr>
+                <tr>
+                    <td>Facebook</td>
+                    <td>{{facebook.lastfailedtimestamp}}</td>
+                    <td>{{facebook.lastsuccesstimestamp}}</td>
+                     {{#if facebook.currentstatus}}
+                    <td style="background:lightgreen">{{facebook.currentstatus}}</td>
+                    {{/if}}
+                    {{#unless facebook.currentstatus}}
+                    <td style="background:red">{{facebook.currentstatus}}</td>
+                    {{/unless}}
+                </tr>
             </tbody>
         </table>
 
