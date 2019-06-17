@@ -20,9 +20,9 @@
         "pass":"anurag@kali"
     },
     "scrapeMind":{
-        "credentials":"http://localhost:3000/api/checkcredentials",
-        "updateStatus":"http://localhost:3000/api/update_status",
-        "updateEngineStatus":"http://localhost:3000/api/updateenginestatus"
+        "credentials":"https://bytescare.localtunnel.me/api/checkcredentials",
+        "updateStatus":"https://bytescare.localtunnel.me/api/update_status",
+        "updateEngineStatus":"https://bytescare.localtunnel.me/api/updateenginestatus"
 
     }
 }
