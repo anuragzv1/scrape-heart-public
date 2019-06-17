@@ -30,89 +30,104 @@ router.post('/google', (req, res) => {
 });
 
 router.post('/bing', (req, res) => {
+    var num_pages = req.body.pages;
     var keyword = req.body.keywords.split(',');
-    let config = {
-        search_engine: 'bing',
-        debug: req.body.debug,
-        verbose: req.body.verbose,
-        keywords: keyword,
-        num_pages: req.body.pages,
-    };
-    function callback(err, response) {
-        if (err) {
-            console.error(err);
-            core.apilog('bing', 0, req.originalUrl, Date.now(), req.body);
+    (async () => {
+        let scrape_job = {
+            search_engine: 'bing',
+            keywords: keyword,
+            num_pages: num_pages,
+        };
+        try {
+            var results = await se_scraper.scrape({}, scrape_job);
+        }
+        catch (err) {
+            if (err) {
+                console.log(err);
+                core.apilog('bing', 0, req.originalUrl, Date.now(), req.body);
+            }
         }
         core.apilog('bing', 1, req.originalUrl, Date.now(), req.body);
-        res.send(response).status(200);
-    }
+        res.send(results).status(200);
 
-    se_scraper.scrape(config, callback);
+
+    })();
 });
 
 router.post('/infospace', (req, res) => {
+    var num_pages = req.body.pages;
     var keyword = req.body.keywords.split(',');
-    let config = {
-        search_engine: 'infospace',
-        debug: req.body.debug,
-        verbose: req.body.verbose,
-        keywords: keyword,
-        num_pages: req.body.pages,
-    };
-    function callback(err, response) {
-        if (err) {
-            console.error(err)
-            core.apilog('infospace', 0, req.originalUrl, Date.now(), req.body);
+    (async () => {
+        let scrape_job = {
+            search_engine: 'infospace',
+            keywords: keyword,
+            num_pages: num_pages,
+        };
+        try {
+            var results = await se_scraper.scrape({}, scrape_job);
         }
-        console.dir(response, { depth: null, colors: true });
+        catch (err) {
+            if (err) {
+                console.log(err);
+                core.apilog('infospace', 0, req.originalUrl, Date.now(), req.body);
+            }
+        }
         core.apilog('infospace', 1, req.originalUrl, Date.now(), req.body);
-        res.send(response).status(200);
-    }
+        res.send(results).status(200);
 
-    se_scraper.scrape(config, callback);
+
+    })();
 });
 
 router.post('/baidu', (req, res) => {
+    var num_pages = req.body.pages;
     var keyword = req.body.keywords.split(',');
-    let config = {
-        search_engine: 'baidu',
-        debug: req.body.debug,
-        verbose: req.body.verbose,
-        keywords: keyword,
-        num_pages: req.body.pages,
-    };
-    function callback(err, response) {
-        if (err) {
-            console.error(err)
-            core.apilog('baidu', 0, req.originalUrl, Date.now(), req.body);
+    (async () => {
+        let scrape_job = {
+            search_engine: 'baidu',
+            keywords: keyword,
+            num_pages: num_pages,
+        };
+        try {
+            var results = await se_scraper.scrape({}, scrape_job);
         }
-        console.dir(response, { depth: null, colors: true });
+        catch (err) {
+            if (err) {
+                console.log(err);
+                core.apilog('baidu', 0, req.originalUrl, Date.now(), req.body);
+            }
+        }
         core.apilog('baidu', 1, req.originalUrl, Date.now(), req.body);
-        res.send(response).status(200);
-    }
+        res.send(results).status(200);
 
-    se_scraper.scrape(config, callback);
+
+    })();
 });
+
 router.post('/duckduckgo', (req, res) => {
+    var num_pages = req.body.pages;
     var keyword = req.body.keywords.split(',');
-    let config = {
-        search_engine: 'duckduckgo',
-        debug: req.body.debug,
-        verbose: req.body.verbose,
-        keywords: keyword,
-        num_pages: req.body.pages,
-    };
-    function callback(err, response) {
-        if (err) { console.error(err) 
-            core.apilog('duckduckgo',0,req.originalUrl,Date.now(),req.body);
+    (async () => {
+        let scrape_job = {
+            search_engine: 'duckduckgo',
+            keywords: keyword,
+            num_pages: num_pages,
+        };
+        try {
+            var results = await se_scraper.scrape({}, scrape_job);
         }
-        core.apilog('duckduckgo',1,req.originalUrl,Date.now(),req.body);
-        res.send(response).status(200);
-    }
+        catch (err) {
+            if (err) {
+                console.log(err);
+                core.apilog('duckduckgo', 0, req.originalUrl, Date.now(), req.body);
+            }
+        }
+        core.apilog('duckduckgo', 1, req.originalUrl, Date.now(), req.body);
+        res.send(results).status(200);
 
-    se_scraper.scrape(config, callback);
+
+    })();
 });
-
 router.get('/', (req, res) => {
     res.json({
         "Google": "/se/google",
