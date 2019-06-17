@@ -15,9 +15,6 @@ const argv = require('yargs').argv;
 
 
 
-
-
-
 //Internal_modules
 se = require('./routes/controllers/searchengine');
 custom = require('./routes/controllers/customtasks');
@@ -245,7 +242,7 @@ app.get('/dashboard', (req, res) => {
         res.render('dashboard', {
             user_id: req.user,
             rprocess: 'hello ' + rprocess + '!',
-            processor: shell.exec('cat /proc/cpuinfo  | grep model name| uniq'),
+            processor: shell.exec('cat /proc/cpuinfo  | grep "model name"| uniq'),
         });
     }
     else {
