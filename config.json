@@ -20,9 +20,9 @@
         "pass":"anurag@kali"
     },
     "scrapeMind":{
-        "credentials":"http://6c0c9966.ngrok.io/api/checkcredentials",
-        "updateStatus":"http://6c0c9966.ngrok.io/api/update_status",
-        "updateEngineStatus":"http://6c0c9966.ngrok.io/api/updateenginestatus"
+        "credentials":"http://aec569ce.ngrok.io/api/checkcredentials",
+        "updateStatus":"http://aec569ce.ngrok.io/api/update_status",
+        "updateEngineStatus":"http://aec569ce.ngrok.io/api/updateenginestatus"
 
     }
 }
