@@ -5,28 +5,28 @@ const core = require('../models/functions');
 
 
 router.post('/google', (req, res) => {
+    var num_pages = req.body.pages;
     var keyword = req.body.keywords.split(',');
-    console.log(keyword);
-    let config = {
-        search_engine: 'google',
-        debug: req.body.debug,
-        verbose: req.body.verbose,
-        keywords: keyword,
-        num_pages: req.body.pages,
-    };
-    function callback(err, response) {
-        if (err) {
-            console.error(err);
-            core.apilog('google', 0, req.originalUrl, Date.now(), req.body);
+    (async () => {
+        let scrape_job = {
+            search_engine: 'google',
+            keywords: keyword,
+            num_pages: num_pages,
+        };
+        try {
+            var results = await se_scraper.scrape({}, scrape_job);
         }
-        else if(!err){
-            core.apilog('google', 1, req.originalUrl, Date.now(), req.body);
-            res.send(response).status(200);
+        catch (err) {
+            if (err) {
+                console.log(err);
+                core.apilog('google', 0, req.originalUrl, Date.now(), req.body);
+            }
         }
+        core.apilog('google', 1, req.originalUrl, Date.now(), req.body);
+        res.send(results).status(200);
 
-    }
 
-    se_scraper.scrape(config, callback);
+    })();
 });
 
 router.post('/bing', (req, res) => {
