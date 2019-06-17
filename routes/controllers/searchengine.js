@@ -5,13 +5,13 @@ const core = require('../models/functions');
 
 
 router.post('/google', (req, res) => {
-    console.log(req.body);
     var keyword = req.body.keywords.split(',');
+    console.log(keyword);
     let config = {
         search_engine: 'google',
         debug: req.body.debug,
         verbose: req.body.verbose,
-        keywords: ['bytescare'],
+        keywords: keyword,
         num_pages: req.body.pages,
     };
     function callback(err, response) {
