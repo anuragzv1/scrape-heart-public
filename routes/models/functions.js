@@ -135,9 +135,9 @@ var updatetoredisqueue = (engine,machine_add) => {
 
 }
 
-var processor = shell.exec('sysctl -n machdep.cpu.brand_string').trim();
-var freeram = shell.exec("top -l 1 -s 0 | grep PhysMem").trim();
-var os = shell.exec('system_profiler SPSoftwareDataType | grep "System Version"').trim();
+var processor = shell.exec('cat /proc/cpuinfo  | grep "model name"| uniq').trim();
+var freeram = shell.exec("free -m ").trim();
+var os = shell.exec('uname -a').trim();
 
 module.exports = {
     apilog,
