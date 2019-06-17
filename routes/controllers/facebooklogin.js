@@ -8,7 +8,7 @@ const core = require('../models/functions');
 
 //Load Config File & Facebook Config
 try {
-    var config = readConfig(process.argv[2] || "config.json");
+    var config = readConfig( "config.json");
     var facebookconfig = readConfig("facebookConfig.json");
 } catch (e) {
     console.log("[error] " + new Date().toGMTString() + " : Server Config Not Found.");
