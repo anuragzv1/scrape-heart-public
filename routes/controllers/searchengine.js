@@ -11,7 +11,7 @@ router.post('/google', (req, res) => {
         search_engine: 'google',
         debug: req.body.debug,
         verbose: req.body.verbose,
-        keywords: keyword,
+        keywords: [keyword],
         num_pages: req.body.pages,
     };
     function callback(err, response) {
