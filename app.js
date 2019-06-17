@@ -11,6 +11,7 @@ const CronJob = require('cron').CronJob;
 const fs = require('fs');
 var port = process.env.PORT || 3001;
 const readConfig =  require('jsonfile').readFileSync;
+const argv = require('yargs').argv;
 
 
 
@@ -26,7 +27,7 @@ facebooklogin=require('./routes/controllers/facebooklogin');
 
 //Load Config File
 try {
-    var config = readConfig(process.argv[2] || "config.json");
+    var config = readConfig("config.json");
 } catch (e) {
     console.log("[error] " + new Date().toGMTString() + " : Server Config Not Found.");
     return process.exit(-1);
@@ -159,7 +160,8 @@ app.use('/facebookapi',facebooklogin);
 //Public_routes
 app.get('/', (req, res) => {
     res.render('index', {
-        data: 'ENTER USERNAME & PASSWORD'
+        data: 'ENTER USERNAME & PASSWORD',
+        subdomain:argv.subdomain
     });
 
 });
@@ -198,7 +200,7 @@ app.post('/', (req, res) => {
                     request.post({
                         headers: { 'content-type': 'application/x-www-form-urlencoded' },
                         url: config.scrapeMind.updateStatus,
-                        form: { "email": req.user,"url":core.tunnel.url },
+                        form: { "email": req.user,"url":argv.subdomain },
                         json: true
                     }, (error, response, body) => {
                         if (error) {
