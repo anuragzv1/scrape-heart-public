@@ -85,8 +85,8 @@ else if (check=='false'){
       
       (async () => {
         const browser = await puppeteer.launch({
-          headless: false,
-          args: ['--no-sandbox', '--disable-setuid-sandbox']
+          headless: true,
+          args: ['--no-sandbox']
         });
         const page = await browser.newPage();
         let login = async () => {
