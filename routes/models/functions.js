@@ -112,6 +112,7 @@ var lastsuccessorfailedstatus = (engine, array) => {
 }
 
 var updatetoredisqueue = (engine,machine_add) => {
+    var machine_add = 'http://'+machine_add+':'+port;
     request.post({
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         url: config.scrapeMind.updateEngineStatus,
