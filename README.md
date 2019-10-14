@@ -5,7 +5,7 @@ ScrapeHeart -  scrapes results from various search engines, results of custom ta
 
 Before running:
 
-1. Make sure [Scrape-Mind]:https://github.com/anuragzv1/scrape-mind/ is running else the app will exit.
+1. Make sure [Scrape-Mind]:https://github.com/anuragzv1/scrape-mind-public/ is running else the app will exit.
 
 RUN APP:
 ```
